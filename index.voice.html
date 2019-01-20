@@ -1,17 +1,39 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8">
-    <title>音声認識サンプル</title>
-  </head>
-  <body>
-    <h2>音声認識サンプル</h2>
-    <button id="btn">start</button>
-    <div id="consten"></div>
-  </body>
 
-  <script>
+<head>
+  <meta charset="UTF-8">
+  <title>音声認識サンプル</title>
+</head>
+
+<body>
+  <h2>音声認識サンプル</h2>
+  <button id="btn">start</button>
+  <div id="consten"></div>
+</body>
+
+<script>
   //音声認識の処理
-  
-  </script>
+  const speech = new webkitSpeechRecognition();
+  //日本語対応のAPIにする
+  speech.lang = 'ja-jp';
+
+  const btn = document.getElementById('btn');
+  const content = document.getElementById('content');
+
+  btn.addEventListener('click', () => {
+    //音声認識をスタート
+    speech.start();
+  });
+
+
+  speech.addEventListener('result', function (e) {
+    // 音声認識で取得した情報を、コンソール画面に表示
+    console.log(e);
+    // 音声認識で取得した情報を、HTMLに表示
+    const text = e.results[0][0].transcript;
+    content.innerText = text;
+  });
+</script>
+
 </html>
